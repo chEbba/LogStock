@@ -1,6 +1,10 @@
 <?php
 /*
- * License
+ * Copyright (c) 2011
+ * Kirill chEbba Cheunin <iam@chebba.org>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this package in the file LICENSE.
  */
 
 namespace Che\LogStock\Adapter;
