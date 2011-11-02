@@ -12,12 +12,12 @@ namespace Che\LogStock\Adapter;
 use Che\LogStock\Logger;
 
 /**
- * Description of DefaultLoggerAdapter
+ * Adapter for system logging (through error_log)
  * 
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
  */ 
-class DefaultLoggerAdapter implements LoggerAdapter
+class SystemLoggerAdapter implements LoggerAdapter
 {
     public function log($level, $message, array $context = array())
     {

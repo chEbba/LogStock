@@ -10,7 +10,7 @@
 namespace Che\LogStock\Loader;
 
 /**
- * Description of NullLoggerLoader
+ * Logger loader which always returns null
  * 
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT License

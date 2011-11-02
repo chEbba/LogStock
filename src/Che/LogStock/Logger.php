@@ -12,7 +12,7 @@ namespace Che\LogStock;
 use Che\LogStock\Adapter\LoggerAdapter;
 
 /**
- * Description of Logger
+ * Logger provides extended functionality around LoggerAdapter
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
@@ -35,6 +35,17 @@ class Logger
     const INFO = 6;
     /** Debug: debug messages */
     const DEBUG = 7;
+
+    private static $LEVELS = array(
+        Logger::EMERG  => 'EMERG',
+        Logger::ALERT  => 'ALERT',
+        Logger::CRIT   => 'CRIT',
+        Logger::ERR    => 'ERR',
+        Logger::WARN   => 'WARN',
+        Logger::NOTICE => 'NOTICE',
+        Logger::INFO   => 'INFO',
+        Logger::DEBUG  => 'DEBUG'
+    );
 
     private $adapter;
 
@@ -60,16 +71,7 @@ class Logger
 
     public static function getLevels()
     {
-        return array(
-            Logger::EMERG  => 'EMERG',
-            Logger::ALERT  => 'ALERT',
-            Logger::CRIT   => 'CRIT',
-            Logger::ERR    => 'ERR',
-            Logger::WARN   => 'WARN',
-            Logger::NOTICE => 'NOTICE',
-            Logger::INFO   => 'INFO',
-            Logger::DEBUG  => 'DEBUG'
-        );
+        return self::$LEVELS;
     }
 
     /**
@@ -81,6 +83,9 @@ class Logger
      */
     public function log($level, $message, array $context = array())
     {
+        if (!isset(self::$LEVELS[$level])) {
+            throw new \InvalidArgumentException("Unknown level '$level'");
+        }
         $this->adapter->log($level, $message, $context);
     }
 

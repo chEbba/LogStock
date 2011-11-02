@@ -10,9 +10,10 @@
 namespace Che\LogStock\Adapter;
 
 /**
- * Description of LoggerAdapter
+ * Logger adapter. Common interface for adapters of different logger libraries
  *
- * @author Kirill chEbba Chebunin <iam at chebba.org>
+ * @author Kirill chEbba Chebunin <iam@chebba.org>
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
  */
 interface LoggerAdapter
 {

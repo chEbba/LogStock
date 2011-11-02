@@ -10,7 +10,7 @@
 namespace Che\LogStock\Loader;
 
 /**
- * Description of LoggerLoader
+ * Logger loader finds loggers by name
  * 
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
@@ -20,9 +20,9 @@ interface LoggerLoader
     /**
      * Load logger by name
      *
-     * @param string $name
+     * @param string $name Logger name
      *
-     * @return Logger|null Logger by name or null if no logger found
+     * @return Logger|null Logger or null if no logger found
      */
     public function load($name);
 }
