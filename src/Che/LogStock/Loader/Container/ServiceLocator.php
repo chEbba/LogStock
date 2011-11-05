@@ -10,19 +10,19 @@
 namespace Che\LogStock\Loader\Container;
 
 /**
- * Description of IdFormatter
+ * Dynamic Service Locator interface
  * 
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
  */ 
-interface IdFormatter
+interface ServiceLocator 
 {
     /**
-     * Format id
+     * Get service by name
      *
-     * @param string $id Original id
+     * @param string $name Service name
      *
-     * @return string Formatted id
+     * @return object|null Service for this name, or null if service is not exist
      */
-    public function formatId($id);
+    public function getService($name);
 }
