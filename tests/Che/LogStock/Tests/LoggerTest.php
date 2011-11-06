@@ -7,7 +7,7 @@
  * with this package in the file LICENSE.
  */
 
-namespace Che\LogStock\Tests\LoggerTest;
+namespace Che\LogStock\Tests;
 
 use Che\LogStock\Logger;
 use PHPUnit_Framework_TestCase as TestCase;
