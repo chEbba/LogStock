@@ -61,9 +61,25 @@ class LoggerTest extends TestCase
     }
 
     /**
+     * @test getLevelName returns level name
+     */
+    public function levelName()
+    {
+        self::assertEquals('ALERT', Logger::getLevelName(Logger::ALERT));
+    }
+
+    /**
+     * @test getLevelName returns null on unknown level
+     */
+    public function unknownLevel()
+    {
+        self::assertNull(Logger::getLevelName(69));
+    }
+
+    /**
      * @test Main log method fallback to adapter
      */
-    public function testLogUsesAdapter()
+    public function logUsesAdapter()
     {
         $level = Logger::INFO;
         $message = 'message';
