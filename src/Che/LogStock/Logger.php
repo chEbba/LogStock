@@ -69,9 +69,26 @@ class Logger
         return $this->adapter;
     }
 
+    /**
+     * Get list of levels
+     *
+     * @return array Level code => Level name
+     */
     public static function getLevels()
     {
         return self::$LEVELS;
+    }
+
+    /**
+     * Get level name by code
+     *
+     * @param int $code Level code
+     *
+     * @return string|null Level name or null if code is not exists
+     */
+    public static function getLevelName($code)
+    {
+        return isset(self::$LEVELS[$code]) ? self::$LEVELS[$code] : null;
     }
 
     /**

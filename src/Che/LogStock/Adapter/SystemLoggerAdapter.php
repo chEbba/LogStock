@@ -21,12 +21,12 @@ class SystemLoggerAdapter implements LoggerAdapter
 {
     public function log($level, $message, array $context = array())
     {
-        $levels = Logger::getLevels();
-        if (!isset($levels[$level])) {
-            throw new \InvalidArgumentException('Unknown level');
+        $levelName = Logger::getLevelName($level);
+        if (!$levelName) {
+            throw new \InvalidArgumentException("Unknown level '$level'");
         }
 
-        $message = sprintf('[%s] %s | %s', $levels[$level], $message, json_encode($context));
+        $message = sprintf('[%s] %s | %s', $levelName, $message, json_encode($context));
         error_log($message);
     }
 }
