@@ -12,16 +12,4 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-spl_autoload_register(function($name) {
-    if (strpos($name, 'Che\LogStock') !== 0) {
-        return false;
-    }
-
-    $fileName = __DIR__ . '/../src/' . str_replace('\\', '/', $name) . '.php';
-    if (!file_exists($fileName)) {
-        return false;
-    }
-
-    require_once $fileName;
-    return true;
-});
+require __DIR__.'/../vendor/.composer/autoload.php';

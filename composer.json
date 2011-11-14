@@ -1,0 +1,27 @@
+{
+    "name": "che/log-stock",
+    "description": "Static Logger Factory",
+    "keywords": ["log", "logging", "logger"],
+    "homepage": "http://github.com/chEbba/LogStock",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kirill chEbba Chebunin",
+            "email": "iam@chebba.org",
+            "homepage": "http://github.com/chEbba"
+        }
+    ],
+
+    "version": "1.0.0-beta1",
+
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "recommends": {
+        "monolog/monolog": "1.0.*"
+    },
+    "autoload": {
+        "psr-0": { "Che\\LogStock": "src/" }
+    }
+}
