@@ -41,12 +41,12 @@ class MonologAdapter implements LoggerAdapter
         if (!$method) {
             throw new \InvalidArgumentException("Unknown level '$level'");
         }
-        call_user_func(array($this->logger, $method). $message, $context);
+        call_user_func(array($this->logger, $method), $message, $context);
     }
 
     private static function getLevelMethod($level)
     {
-        $levels = Logger::getLevels();
-        return isset($levels[$level]) ? strtolower($levels[$level]) : $levels[$level];
+        $levelName = Logger::getLevelName($level);
+        return $levelName ? strtolower($levelName) : null;
     }
 }
