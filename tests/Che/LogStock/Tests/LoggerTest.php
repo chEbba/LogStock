@@ -98,7 +98,7 @@ class LoggerTest extends TestCase
      */
     public function aliasMethods($method, $level, $message, array $context)
     {
-        $this->testAliasMethod($method, $level, $message, $context);
+        $this->expectsAliasMethod($method, $level, $message, $context);
     }
 
     /**
@@ -128,7 +128,7 @@ class LoggerTest extends TestCase
      * @param string $message
      * @param array  $context
      */
-    private function testAliasMethod($method, $level, $message, array $context)
+    private function expectsAliasMethod($method, $level, $message, array $context)
     {
         $this->adapter->expects(self::once())
             ->method('log')
