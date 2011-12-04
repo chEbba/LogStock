@@ -25,11 +25,33 @@ class SystemLoggerAdapterTest extends TestCase
      * @var SystemLoggerAdapter
      */
     private $adapter;
+    /**
+     * @var string
+     */
+    private $errorLog;
+    /**
+     * @var string
+     */
+    private $oldErrorLog;
 
     protected function setUp()
     {
         $this->adapter = new SystemLoggerAdapter();
+
+        // Set error_log and save old value
+        $this->oldErrorLog = ini_get('error_log');
+        $this->errorLog = tempnam(sys_get_temp_dir(), 'logstock_log');
+        ini_set('error_log', $this->errorLog);
     }
+
+    protected function tearDown()
+    {
+        // Remove tmp log file
+        @unlink($this->errorLog);
+        // Restore error_log
+        ini_set('error_log', $this->oldErrorLog);
+    }
+
 
     /**
      * @test log method uses error log for logging
@@ -40,19 +62,9 @@ class SystemLoggerAdapterTest extends TestCase
         $message = 'Message text';
         $context = array('foo' => 'bar');
 
-        $tmpLog = tempnam(sys_get_temp_dir(), 'php_test_log');
-
-        // Set error_log
-        $oldErrorLog = ini_get('error_log');
-        ini_set('error_log', $tmpLog);
-
         $this->adapter->log($lvl, $message, $context);
 
-        // Restore error_log
-        ini_set('error_log', $oldErrorLog);
-
-        $text = file_get_contents($tmpLog);
-        @unlink($tmpLog);
+        $text = file_get_contents($this->errorLog);
 
         $this->assertContains(sprintf('[%s] %s | %s', Logger::getLevelName($lvl), $message, json_encode($context)), $text);
     }
