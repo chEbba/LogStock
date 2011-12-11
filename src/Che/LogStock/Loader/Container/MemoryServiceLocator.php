@@ -28,11 +28,11 @@ class MemoryServiceLocator implements ServiceLocator
      * Set logger service
      *
      * @param string $name   Service name
-     * @param Logger $logger Logger instance
+     * @param object $logger Logger instance
      *
      * @return MemoryServiceLocator Provides fluent interface
      */
-    public function setService($name, Logger $logger)
+    public function setService($name, $logger)
     {
         $this->loggers[$name] = $logger;
 
