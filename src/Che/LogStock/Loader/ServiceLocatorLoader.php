@@ -66,6 +66,7 @@ class ServiceLocatorLoader implements LoggerLoader
     {
         $name = $this->formatter ? $this->formatter->formatServiceName($name) : $name;
         $service = $this->locator->getService($name);
-        return ($service && ($service instanceof Logger)) ? $service : null;
+
+        return (is_object($service) && ($service instanceof Logger)) ? $service : null;
     }
 }
