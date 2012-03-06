@@ -19,11 +19,30 @@ use Che\LogStock\Logger;
  */ 
 class SystemLoggerAdapter implements LoggerAdapter
 {
+    /**
+     * @var int
+     */
+    private $levelLimit;
+
+    /**
+     * Constructor with level limit support
+     * @param int $levelLimit Max level to log message (less is more critical)
+     */
+    public function __construct($levelLimit = Logger::WARN)
+    {
+        $this->levelLimit = (int) $levelLimit;
+    }
+
     public function log($level, $message, array $context = array())
     {
         $levelName = Logger::getLevelName($level);
         if (!$levelName) {
             throw new \InvalidArgumentException("Unknown level '$level'");
+        }
+
+        // Do not log anything with not important level
+        if ($level <= $this->levelLimit) {
+            return;
         }
 
         $message = sprintf('[%s] %s | %s', $levelName, $message, json_encode($context));
