@@ -7,10 +7,10 @@
  * with this package in the file LICENSE.
  */
 
-namespace Che\LogStock\Tests\Adapter;
+namespace Che\LogStock\Tests\Adapter\Monolog;
 
 use Che\LogStock\Logger;
-use Che\LogStock\Adapter\MonologAdapter;
+use Che\LogStock\Adapter\Monolog\MonologAdapter;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**

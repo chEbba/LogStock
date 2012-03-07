@@ -7,9 +7,10 @@
  * with this package in the file LICENSE.
  */
 
-namespace Che\LogStock\Adapter;
+namespace Che\LogStock\Adapter\Monolog;
 
 use Che\LogStock\Logger;
+use Che\LogStock\Adapter\LoggerAdapter;
 
 /**
  * Logger adapter for Monolog
@@ -19,7 +20,7 @@ use Che\LogStock\Logger;
  */ 
 class MonologAdapter implements LoggerAdapter
 {
-    const NAME_KEY = '__name';
+    const NAME_KEY = 'log_stock.name';
     /**
      * @var \Monolog\Logger
      */
