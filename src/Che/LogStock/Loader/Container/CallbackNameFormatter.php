@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2011 
+ * Copyright (c)
  * Kirill chEbba Cheunin <iam@chebba.org>
  *
  * This source file is subject to the MIT license that is bundled
