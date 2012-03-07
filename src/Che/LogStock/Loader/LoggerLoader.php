@@ -22,7 +22,7 @@ interface LoggerLoader
      *
      * @param string $name Logger name
      *
-     * @return Logger|null Logger or null if no logger found
+     * @return \Che\LogStock\Adapter\LoggerAdapter|null LoggerAdapter or null if no adapter found
      */
     public function load($name);
 }

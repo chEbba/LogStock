@@ -62,11 +62,11 @@ class SystemLoggerAdapterTest extends TestCase
         $message = 'Message text';
         $context = array('foo' => 'bar');
 
-        $this->adapter->log($lvl, $message, $context);
+        $this->adapter->log('name', $lvl, $message, $context);
 
         $text = file_get_contents($this->errorLog);
 
-        $this->assertContains(sprintf('[%s] %s | %s', Logger::getLevelName($lvl), $message, json_encode($context)), $text);
+        $this->assertContains(sprintf("[%s] %s: %s \n%s\n", Logger::getLevelName($lvl), 'name', $message, json_encode($context)), $text);
     }
 
     /**
@@ -75,6 +75,6 @@ class SystemLoggerAdapterTest extends TestCase
      */
     public function wrongLevel()
     {
-        $this->adapter->log(666, 'o_O');
+        $this->adapter->log('foo', 666, 'o_O');
     }
 }

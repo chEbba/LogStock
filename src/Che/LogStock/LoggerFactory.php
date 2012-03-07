@@ -26,34 +26,48 @@ class LoggerFactory
     /**
      * @var Logger
      */
-    private static $rootLogger;
+    private static $rootAdapter;
     /**
      * @var LoggerLoader
      */
     private static $loader;
-
     /**
-     * Get root logger. All missed loggers will fallback to this logger
-     *
-     * @return Logger
+     * @var array Logger map
      */
-    public static function getRootLogger()
-    {
-        if (!self::$rootLogger) {
-            self::$rootLogger = new Logger(new SystemLoggerAdapter());
-        }
-
-        return self::$rootLogger;
-    }
+    private static $loggers = array();
 
     /**
-     * Initialize root logger
+     * Initialize root logger adapter
      *
      * @param LoggerAdapter $adapter Adapter for logger
      */
-    public static function initRootLogger(LoggerAdapter $adapter)
+    public static function initRootAdapter(LoggerAdapter $adapter)
     {
-        self::$rootLogger = new Logger($adapter);
+        self::$rootAdapter = $adapter;
+    }
+
+    /**
+     * Get root logger adapter. All missed adapters will fallback to this adapter
+     *
+     * @return LoggerAdapter
+     */
+    public static function getRootAdapter()
+    {
+        if (!self::$rootAdapter) {
+            self::$rootAdapter = new SystemLoggerAdapter();
+        }
+
+        return self::$rootAdapter;
+    }
+
+    /**
+     * Initialize loader for logger adapters
+     *
+     * @param LoggerLoader $loader Logger loader
+     */
+    public static function initLoader(LoggerLoader $loader)
+    {
+        self::$loader = $loader;
     }
 
     /**
@@ -71,17 +85,7 @@ class LoggerFactory
     }
 
     /**
-     * Initialize loader for loggers
-     *
-     * @param LoggerLoader $loader Logger loader
-     */
-    public static function initLoader(LoggerLoader $loader)
-    {
-        self::$loader = $loader;
-    }
-
-    /**
-     * Get logger by name.
+     * Get logger by name
      *
      * @param string $name
      *
@@ -89,6 +93,21 @@ class LoggerFactory
      */
     public static function getLogger($name)
     {
-        return self::getLoader()->load($name) ?: self::getRootLogger();
+        // Return exist logger or create new from adapter
+        return isset(self::$loggers[$name]) ?
+            self::$loggers[$name] :
+            self::$loggers[$name] = new Logger(self::loadAdapter($name), $name);
+    }
+
+    /**
+     * Load adapter by name
+     *
+     * @param string $name
+     *
+     * @return LoggerAdapter
+     */
+    private static function loadAdapter($name)
+    {
+        return self::getLoader()->load($name) ?: self::getRootAdapter();
     }
 }

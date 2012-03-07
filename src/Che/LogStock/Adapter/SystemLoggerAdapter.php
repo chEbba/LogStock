@@ -33,7 +33,7 @@ class SystemLoggerAdapter implements LoggerAdapter
         $this->levelLimit = (int) $levelLimit;
     }
 
-    public function log($level, $message, array $context = array())
+    public function log($name, $level, $message, array $context = array())
     {
         $levelName = Logger::getLevelName($level);
         if (!$levelName) {
@@ -41,11 +41,12 @@ class SystemLoggerAdapter implements LoggerAdapter
         }
 
         // Do not log anything with not important level
-        if ($level <= $this->levelLimit) {
+        if ($level >= $this->levelLimit) {
             return;
         }
 
-        $message = sprintf('[%s] %s | %s', $levelName, $message, json_encode($context));
+        // TODO: Format $context
+        $message = sprintf("[%s] %s: %s \n%s\n", $levelName, $name, $message, json_encode($context));
         error_log($message);
     }
 }

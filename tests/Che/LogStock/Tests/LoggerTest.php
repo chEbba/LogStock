@@ -32,7 +32,7 @@ class LoggerTest extends TestCase
     protected function setUp()
     {
         $this->adapter = $this->getMock('Che\LogStock\Adapter\LoggerAdapter');
-        $this->logger = new Logger($this->adapter);
+        $this->logger = new Logger($this->adapter, 'name');
     }
 
     /**
@@ -41,6 +41,14 @@ class LoggerTest extends TestCase
     public function getAdapterReturnsAdapter()
     {
         self::assertEquals($this->adapter, $this->logger->getAdapter());
+    }
+
+    /**
+     * @test Getter for name
+     */
+    public function getNameReturnsName()
+    {
+        self::assertEquals('name', $this->logger->getName());
     }
 
     /**
@@ -87,7 +95,7 @@ class LoggerTest extends TestCase
 
         $this->adapter->expects(self::once())
             ->method('log')
-            ->with($level, $message, $context);
+            ->with('name', $level, $message, $context);
 
         $this->logger->log($level, $message, $context);
     }
@@ -132,7 +140,7 @@ class LoggerTest extends TestCase
     {
         $this->adapter->expects(self::once())
             ->method('log')
-            ->with($level, $message, $context);
+            ->with('name', $level, $message, $context);
 
         call_user_func(array($this->logger, $method), $message, $context);
     }

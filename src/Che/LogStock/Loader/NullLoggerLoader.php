@@ -21,5 +21,4 @@ class NullLoggerLoader implements LoggerLoader
     {
         return null;
     }
-
 }

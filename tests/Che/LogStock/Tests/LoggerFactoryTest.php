@@ -21,21 +21,21 @@ use PHPUnit_Framework_TestCase as TestCase;
 class LoggerFactoryTest extends TestCase
 {
     /**
-     * @test If no logger set, the default should be returned
+     * @test If no adapter was set, the default should be returned
      */
-    public function defaultRootLogger()
+    public function defaultRootAdapter()
     {
-        self::assertInstanceOf('Che\LogStock\Adapter\SystemLoggerAdapter', LoggerFactory::getRootLogger()->getAdapter());
+        self::assertInstanceOf('Che\LogStock\Adapter\SystemLoggerAdapter', LoggerFactory::getRootAdapter());
     }
 
     /**
-     * @test initRootLogger set new rootLogger
+     * @test initRootAdapter set new rootAdapter
      */
-    public function initRootLoggerReplaceLogger()
+    public function initRootLoggerReplaceAdapter()
     {
         $adapter = $this->getMock('Che\LogStock\Adapter\LoggerAdapter');
-        LoggerFactory::initRootLogger($adapter);
-        self::assertEquals($adapter, LoggerFactory::getRootLogger()->getAdapter());
+        LoggerFactory::initRootAdapter($adapter);
+        self::assertEquals($adapter, LoggerFactory::getRootAdapter());
     }
 
     /**
@@ -57,27 +57,38 @@ class LoggerFactoryTest extends TestCase
     }
 
     /**
-     * @test If no logger found, root logger should be returned
+     * @test If no adapter was found, logger with the default adapter should be returned
      */
     public function rootLoggerFallback()
     {
-        self::assertEquals(LoggerFactory::getRootLogger(), LoggerFactory::getLogger('not_exists'));
+        $logger = LoggerFactory::getLogger('not_exists');
+        self::assertEquals(LoggerFactory::getRootAdapter(), $logger->getAdapter());
+        self::assertEquals('not_exists', $logger->getName());
     }
 
     /**
-     * @test getLogger uses loader to find loggers
+     * @test getLogger uses loader to find adapters
      */
     public function namedLogger()
     {
-        $logger = $this->getMock('Che\LogStock\Logger', array(), array(), '', false);
+        $adapter = $this->getMock('Che\LogStock\Adapter\LoggerAdapter');
         $loader = $this->getMock('Che\LogStock\Loader\LoggerLoader');
         $loader->expects(self::once())
             ->method('load')
             ->with('name')
-            ->will(self::returnValue($logger));
+            ->will(self::returnValue($adapter));
 
         LoggerFactory::initLoader($loader);
 
-        self::assertEquals($logger, LoggerFactory::getLogger('name'));
+
+        self::assertEquals($adapter, LoggerFactory::getLogger('name')->getAdapter());
+    }
+
+    /**
+     * @test getLogger always return same instance for same name
+     */
+    public function sameLogger()
+    {
+        self::assertSame(LoggerFactory::getLogger('name'), LoggerFactory::getLogger('name'));
     }
 }

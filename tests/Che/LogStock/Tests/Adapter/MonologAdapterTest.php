@@ -47,8 +47,10 @@ class MonologAdapterTest extends TestCase
      */
     public function logUsesZfMethods($method, $level, $message, $context)
     {
-        $this->expectsZfMethod($method, $message, $context);
-        $this->adapter->log($level, $message, $context);
+        $modifiedContext = $context;
+        $modifiedContext[MonologAdapter::NAME_KEY] = 'name';
+        $this->expectsZfMethod($method, $message, $modifiedContext);
+        $this->adapter->log('name', $level, $message, $context);
     }
 
     /**

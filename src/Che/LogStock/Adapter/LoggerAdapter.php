@@ -20,9 +20,10 @@ interface LoggerAdapter
     /**
      * Log message
      *
+     * @param string $name Logger name
      * @param int    $level Log level one of the Logger::* constants
      * @param string $message Log message
      * @param array  $context An array of extra information
      */
-    public function log($level, $message, array $context = array());
+    public function log($name, $level, $message, array $context = array());
 }

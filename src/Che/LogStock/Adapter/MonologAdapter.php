@@ -19,6 +19,7 @@ use Che\LogStock\Logger;
  */ 
 class MonologAdapter implements LoggerAdapter
 {
+    const NAME_KEY = '__name';
     /**
      * @var \Monolog\Logger
      */
@@ -34,8 +35,11 @@ class MonologAdapter implements LoggerAdapter
         $this->logger = $logger;
     }
 
-    public function log($level, $message, array $context = array())
+    public function log($name, $level, $message, array $context = array())
     {
+        // Save name
+        $context[self::NAME_KEY] = $name;
+
         // Use ZF compatible methods to rely on Monolog internal level mapping
         $method = self::getLevelMethod($level);
         if (!$method) {

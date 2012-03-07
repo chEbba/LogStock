@@ -47,16 +47,24 @@ class Logger
         Logger::DEBUG  => 'DEBUG'
     );
 
+    /**
+     * @var LoggerAdapter
+     */
     private $adapter;
+    /**
+     * @var string
+     */
+    private $name;
 
     /**
      * Constructor
      *
      * @param LoggerAdapter $adapter
      */
-    public function __construct(LoggerAdapter $adapter)
+    public function __construct(LoggerAdapter $adapter, $name)
     {
         $this->adapter = $adapter;
+        $this->name = $name;
     }
 
     /**
@@ -67,6 +75,16 @@ class Logger
     public function getAdapter()
     {
         return $this->adapter;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -103,7 +121,7 @@ class Logger
         if (!isset(self::$LEVELS[$level])) {
             throw new \InvalidArgumentException("Unknown level '$level'");
         }
-        $this->adapter->log($level, $message, $context);
+        $this->adapter->log($this->name, $level, $message, $context);
     }
 
     /**
