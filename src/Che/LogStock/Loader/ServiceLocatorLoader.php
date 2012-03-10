@@ -9,7 +9,7 @@
 
 namespace Che\LogStock\Loader;
 
-use Che\LogStock\Logger;
+use Che\LogStock\Adapter\LoggerAdapter;
 use Che\LogStock\Loader\Container\ServiceLocator;
 use Che\LogStock\Loader\Container\ServiceNameFormatter;
 
@@ -67,6 +67,6 @@ class ServiceLocatorLoader implements LoggerLoader
         $name = $this->formatter ? $this->formatter->formatServiceName($name) : $name;
         $service = $this->locator->getService($name);
 
-        return (is_object($service) && ($service instanceof Logger)) ? $service : null;
+        return (is_object($service) && ($service instanceof LoggerAdapter)) ? $service : null;
     }
 }
