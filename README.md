@@ -1,14 +1,15 @@
 LogStock - Static Logger Factory for PHP 5.3
 ============================================
 
-Logging functionality is required in all classes, so it is one of situations where static code is a good choice. Now you can create more logs with you preferred logging library.
+Logging functionality is required in all classes, so it is one of situations where static code is a good choice.
+Now you can create more logs with your preferred logging library.
 
 Installation
 ------------
 
-You can just clone repository (or download version by tag) and include library with PSR-0 autoloader.
+You can just clone the repository (or download versions by tags) and include the library with PSR-0 autoloader.
 
-Or use [composer packages](http://packagist.org/packages/che/log-stock "che/log-stock").
+Or use the [composer packages](http://packagist.org/packages/che/log-stock "che/log-stock").
 
 
 Usage
@@ -47,14 +48,14 @@ Concepts
 
 Logger is a wrapper around adapters for 3rd party logging libraries.
 
-Logger instances depend on logger names. Factory tries to find an adapter from loader for requested name. If nothing was found, logger with root adapter is returned. So LoggerFactory ALWAYS return an instance of logger.
+Logger instances depend on logger names. Factory tries to find an adapter from a loader for requested name. If nothing was found, logger with a root adapter is returned. So LoggerFactory ALWAYS return an instance of logger.
 
 
 Adapters
 --------
 
 *   _SystemLoggerAdapter_ - wrapper around [error_log](http://www.php.net/manual/en/function.error-log.php "error_log") function with $message_type = 0.
-    Log level limit can be configured (default is WARN).
+    Log level limit can be configured (default is WARN). The default root adapter.
 *   _MonologAdapter_ - adapter for [Monolog library](https://github.com/Seldaek/monolog "Monolog"). Bundled with NameProcessor which stores logger name in extra.log_stock.name.
 *   _ZendLogAdapter_ - adapter for Zend_Log [ZF2](https://github.com/zendframework/zf2 "ZF2") version is comming soon.
 
