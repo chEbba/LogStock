@@ -36,6 +36,9 @@ class Logger
     /** Debug: debug messages */
     const DEBUG = 7;
 
+    /**
+     * @var array Level names
+     */
     private static $LEVELS = array(
         Logger::EMERG  => 'EMERG',
         Logger::ALERT  => 'ALERT',
@@ -59,7 +62,8 @@ class Logger
     /**
      * Constructor
      *
-     * @param LoggerAdapter $adapter
+     * @param LoggerAdapter $adapter Internal logger adapter
+     * @param string        $name    Logger name
      */
     public function __construct(LoggerAdapter $adapter, $name)
     {
@@ -112,7 +116,7 @@ class Logger
     /**
      * Log message
      *
-     * @param int    $level Log level one of the Logger::* constants
+     * @param int    $level   Log level one of the Logger::* constants
      * @param string $message Log message
      * @param array  $context An array of extra information
      */
