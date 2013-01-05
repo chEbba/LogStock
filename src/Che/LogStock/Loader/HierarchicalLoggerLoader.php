@@ -24,7 +24,7 @@ class HierarchicalLoggerLoader implements LoggerLoader
     /**
      * @var LoggerLoader
      */
-    private $loader;
+    private $internalLoader;
     /**
      * @var string
      */
@@ -33,19 +33,42 @@ class HierarchicalLoggerLoader implements LoggerLoader
     /**
      * Constructor
      *
-     * @param LoggerLoader $loader    Wrapped loader
-     * @param string       $separator Hierarchy separator
+     * @param LoggerLoader $internalLoader Wrapped loader
+     * @param string       $separator      Hierarchy separator
      */
-    public function __construct(LoggerLoader $loader, $separator = '\\')
+    public function __construct(LoggerLoader $internalLoader, $separator = '\\')
     {
-        $this->loader = $loader;
+        $this->internalLoader = $internalLoader;
         $this->separator = $separator;
     }
 
+    /**
+     * Get internalLoader
+     *
+     * @return LoggerLoader
+     */
+    public function getInternalLoader()
+    {
+        return $this->internalLoader;
+    }
+
+    /**
+     * Get separator
+     *
+     * @return string
+     */
+    public function getSeparator()
+    {
+        return $this->separator;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function load($name)
     {
         while ($name) {
-            $logger = $this->loader->load($name);
+            $logger = $this->internalLoader->load($name);
             if ($logger) {
                 return $logger;
             }
@@ -54,7 +77,7 @@ class HierarchicalLoggerLoader implements LoggerLoader
         }
 
         // Try to load loader with empty name ""
-        return $this->loader->load($name);
+        return $this->internalLoader->load($name);
     }
 
     /**
@@ -62,7 +85,7 @@ class HierarchicalLoggerLoader implements LoggerLoader
      *
      * @param string $name Child logger name
      *
-     * @return string Parent name, an empty string means there is no parent for this name
+     * @return string Parent name, an empty string is the top level parent
      */
     protected function getParentName($name)
     {
