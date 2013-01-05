@@ -66,7 +66,7 @@ class SystemLoggerAdapterTest extends TestCase
 
         $text = file_get_contents($this->errorLog);
 
-        $this->assertContains(sprintf("[%s] %s: %s \n%s\n", Logger::getLevelName($lvl), 'name', $message, json_encode($context)), $text);
+        $this->assertContains(sprintf("[%s] %s: %s (%s)", Logger::getLevelName($lvl), 'name', $message, json_encode($context)), $text);
     }
 
     /**
