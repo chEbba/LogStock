@@ -53,7 +53,8 @@ class HierarchicalLoggerLoader implements LoggerLoader
             $name = $this->getParentName($name);
         }
 
-        return null;
+        // Try to load loader with empty name ""
+        return $this->loader->load($name);
     }
 
     /**

@@ -81,6 +81,31 @@ class HierarchicalLoggerLoaderTest extends TestCase
     }
 
     /**
+     * @test Logger with empty name is loaded at the end of hierarchy
+     */
+    public function emptyNameLogger()
+    {
+        $this->loader->expects(self::at(0))
+            ->method('load')
+            ->with('LogStock$Logger')
+            ->will(self::returnValue(null));
+
+        $this->loader->expects(self::at(1))
+            ->method('load')
+            ->with('LogStock')
+            ->will(self::returnValue(null));
+
+        $this->loader->expects(self::at(2))
+            ->method('load')
+            ->with('')
+            ->will(self::returnValue($this->logger));
+
+        $logger = $this->hierarchyLoader->load('LogStock$Logger');
+
+        self::assertSame($this->logger, $logger);
+    }
+
+    /**
      * @test If no parents where found, null should be returned
      */
     public function noParentsLoadsNull()
@@ -93,6 +118,11 @@ class HierarchicalLoggerLoaderTest extends TestCase
         $this->loader->expects(self::at(1))
             ->method('load')
             ->with('LogStock')
+            ->will(self::returnValue(null));
+
+        $this->loader->expects(self::at(2))
+            ->method('load')
+            ->with('')
             ->will(self::returnValue(null));
 
         $logger = $this->hierarchyLoader->load('LogStock$Logger');
