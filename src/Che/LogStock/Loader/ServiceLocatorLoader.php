@@ -62,11 +62,14 @@ class ServiceLocatorLoader implements LoggerLoader
         return $this->formatter;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function load($name)
     {
         $name = $this->formatter ? $this->formatter->formatServiceName($name) : $name;
         $service = $this->locator->getService($name);
 
-        return (is_object($service) && ($service instanceof LoggerAdapter)) ? $service : null;
+        return ($service instanceof LoggerAdapter) ? $service : null;
     }
 }

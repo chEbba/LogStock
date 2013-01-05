@@ -85,7 +85,7 @@ class ServiceLocatorLoaderTest extends TestCase
     /**
      * Expects locator and formatter calls
      *
-     * @param $value Locator return value
+     * @param mixed $value Locator return value
      */
     private function expectsLocator($value)
     {
