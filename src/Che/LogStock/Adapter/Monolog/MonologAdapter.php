@@ -36,6 +36,9 @@ class MonologAdapter implements LoggerAdapter
         $this->logger = $logger;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function log($name, $level, $message, array $context = array())
     {
         // Save name
@@ -49,6 +52,13 @@ class MonologAdapter implements LoggerAdapter
         call_user_func(array($this->logger, $method), $message, $context);
     }
 
+    /**
+     * Get method name for level
+     *
+     * @param int $level
+     *
+     * @return string|null
+     */
     private static function getLevelMethod($level)
     {
         $levelName = Logger::getLevelName($level);

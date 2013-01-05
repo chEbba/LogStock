@@ -56,6 +56,9 @@ class MemoryServiceLocator implements ServiceLocator
         return $logger;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getService($name)
     {
         return isset($this->loggers[$name]) ? $this->loggers[$name] : null;

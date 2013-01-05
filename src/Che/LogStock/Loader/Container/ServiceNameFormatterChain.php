@@ -11,7 +11,7 @@ namespace Che\LogStock\Loader\Container;
 
 /**
  * Chain of ServiceNameFormatters.
- * Formatters are applied in direct order, while stored in stack
+ * Formatters are applied in direct order (first pushed first applied)
  * 
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
@@ -61,6 +61,9 @@ class ServiceNameFormatterChain implements ServiceNameFormatter
         return array_pop($this->formatterStack);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function formatServiceName($name)
     {
         foreach ($this->formatterStack as $formatter) {

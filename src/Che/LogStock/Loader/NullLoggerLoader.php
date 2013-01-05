@@ -17,6 +17,9 @@ namespace Che\LogStock\Loader;
  */ 
 class NullLoggerLoader implements LoggerLoader
 {
+    /**
+     * {@inheritDoc}
+     */
     public function load($name)
     {
         return null;

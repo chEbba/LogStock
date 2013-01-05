@@ -45,9 +45,11 @@ class CallbackNameFormatter implements ServiceNameFormatter
         return $this->callback;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function formatServiceName($name)
     {
         return call_user_func($this->callback, $name);
     }
-
 }
