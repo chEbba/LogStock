@@ -12,4 +12,4 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-require __DIR__.'/../vendor/.composer/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
