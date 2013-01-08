@@ -1,4 +1,4 @@
-LogStock - Static Logger Factory for PHP 5.3
+LogStock - Static Logger Factory for PHP 5.3 [![Build Status](https://travis-ci.org/chEbba/LogStock.png?branch=master)](https://travis-ci.org/chEbba/LogStock)
 ============================================
 
 Logging functionality is required in all classes, so it is one of situations where static code is a good choice.
