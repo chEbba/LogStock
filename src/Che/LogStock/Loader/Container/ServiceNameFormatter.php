@@ -1,7 +1,7 @@
 <?php
 /*
  * Copyright (c)
- * Kirill chEbba Cheunin <iam@chebba.org>
+ * Kirill chEbba Chebunin <iam@chebba.org>
  *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.
@@ -13,7 +13,7 @@ namespace Che\LogStock\Loader\Container;
  * Converter for service names
  * 
  * @author Kirill chEbba Chebunin <iam@chebba.org>
- * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ * @license http://www.opensource.org/licenses/mit-license.php MIT
  */ 
 interface ServiceNameFormatter
 {
