@@ -9,6 +9,8 @@
 
 namespace Che\LogStock\Loader;
 
+use Che\LogStock\Adapter\LoggerAdapter;
+
 /**
  * Logger loader finds loggers by name
  * 
@@ -22,7 +24,7 @@ interface LoggerLoader
      *
      * @param string $name Logger name
      *
-     * @return \Che\LogStock\Adapter\LoggerAdapter|null LoggerAdapter or null if no adapter found
+     * @return LoggerAdapter|null Logger object or null if no logger found
      */
     public function load($name);
 }

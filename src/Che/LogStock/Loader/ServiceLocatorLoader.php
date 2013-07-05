@@ -10,11 +10,10 @@
 namespace Che\LogStock\Loader;
 
 use Che\LogStock\Adapter\LoggerAdapter;
-use Che\LogStock\Loader\Container\ServiceLocator;
-use Che\LogStock\Loader\Container\ServiceNameFormatter;
+use Che\ServiceLocator\ServiceLocator;
 
 /**
- * ServiceLocatorLoader uses ServiceLocator for finding loggers
+ * Loader which uses ServiceLocator for finding loggers
  * 
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT
@@ -25,41 +24,15 @@ class ServiceLocatorLoader implements LoggerLoader
      * @var ServiceLocator
      */
     private $locator;
-    /**
-     * @var ServiceNameFormatter
-     */
-    private $formatter;
 
     /**
      * Constructor
      *
-     * @param ServiceLocator              $locator   ServiceLocator
-     * @param ServiceNameFormatter|null   $formatter Optional formatter for name converting
+     * @param ServiceLocator $locator Locator instance
      */
-    public function __construct(ServiceLocator $locator, ServiceNameFormatter $formatter = null)
+    public function __construct(ServiceLocator $locator)
     {
         $this->locator = $locator;
-        $this->formatter = $formatter;
-    }
-
-    /**
-     * Get ServiceLocator
-     *
-     * @return ServiceLocator
-     */
-    public function getLocator()
-    {
-        return $this->locator;
-    }
-
-    /**
-     * Get formatter
-     *
-     * @return ServiceNameFormatter
-     */
-    public function getFormatter()
-    {
-        return $this->formatter;
     }
 
     /**
@@ -67,7 +40,6 @@ class ServiceLocatorLoader implements LoggerLoader
      */
     public function load($name)
     {
-        $name = $this->formatter ? $this->formatter->formatServiceName($name) : $name;
         $service = $this->locator->getService($name);
 
         return ($service instanceof LoggerAdapter) ? $service : null;

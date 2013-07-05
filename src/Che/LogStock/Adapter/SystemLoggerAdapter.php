@@ -9,7 +9,7 @@
 
 namespace Che\LogStock\Adapter;
 
-use Che\LogStock\Logger;
+use Che\LogStock\LogLevel;
 
 /**
  * Adapter for system logging (through error_log)
@@ -22,33 +22,39 @@ class SystemLoggerAdapter implements LoggerAdapter
     /**
      * @var int
      */
-    private $levelLimit;
+    private $severityLimit;
 
     /**
      * Constructor with level limit support
-     * @param int $levelLimit Max level to log message (less is more critical)
+     *
+     * @param string $levelLimit LogLevel::* constants. Max level to log message.
+     *
+     * @see LogLevel::getLevelSeverity
      */
-    public function __construct($levelLimit = Logger::WARN)
+    public function __construct($levelLimit = LogLevel::WARNING)
     {
-        $this->levelLimit = (int) $levelLimit;
+        $this->severityLimit = LogLevel::getLevelSeverity($levelLimit);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function log($name, $level, $message, array $context = array())
+    public function log(LogRecord $record)
     {
-        $levelName = Logger::getLevelName($level);
-        if (!$levelName) {
-            throw new \InvalidArgumentException("Unknown level '$level'");
-        }
+        $severity = LogLevel::getLevelSeverity($record->getLevel());
 
         // Do not log anything with not important level
-        if ($level >= $this->levelLimit) {
+        if ($severity >= $this->severityLimit) {
             return;
         }
 
-        $message = sprintf("[%s] %s: %s (%s)", $levelName, $name, $message, json_encode($context));
+        $message = sprintf(
+            "[%s] %s: %s (%s)",
+            strtoupper($record->getLevel()),
+            $record->getLogger(),
+            $record->getInterpolatedMessage(),
+            json_encode($record->getContext())
+        );
         error_log($message);
     }
 }

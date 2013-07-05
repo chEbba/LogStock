@@ -96,7 +96,8 @@ class LoggerFactory
         // Return exist logger or create new from adapter
         return isset(self::$loggers[$name]) ?
             self::$loggers[$name] :
-            self::$loggers[$name] = new Logger(self::loadAdapter($name), $name);
+            self::$loggers[$name] = new Logger(self::loadAdapter($name), $name)
+        ;
     }
 
     /**

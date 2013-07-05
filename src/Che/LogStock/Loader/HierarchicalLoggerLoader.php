@@ -13,8 +13,8 @@ namespace Che\LogStock\Loader;
  * Logger loader wrapper with hierarchy support.
  * Uses separator to detect parent logger for fallback.
  *
- * For example loader with '\' separator will try to load
- * logger with foo\bar name as a parent of missed foo\bar\baz logger.
+ * For example loader with "\" separator will try to load
+ * logger with "foo\bar", "foo" and "" names as a parents of missed "foo\bar\baz" logger.
  * 
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT

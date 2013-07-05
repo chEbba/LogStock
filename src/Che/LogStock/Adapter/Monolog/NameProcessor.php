@@ -9,6 +9,7 @@
 
 namespace Che\LogStock\Adapter\Monolog;
 
+use Che\LogStock\Adapter\PsrAdapter;
 
 /**
  * Monolog Processor for Logger name. It moves name to extra, which can be used in string templates
@@ -27,12 +28,12 @@ class NameProcessor
      */
     public function __invoke(array $record)
     {
-        if (!isset($record['context'][MonologAdapter::NAME_KEY])) {
+        if (!isset($record['context'][PsrAdapter::CONTEXT_NAME_KEY])) {
             return $record;
         }
 
-        $record['extra'][MonologAdapter::NAME_KEY] = $record['context'][MonologAdapter::NAME_KEY];
-        unset($record['context'][MonologAdapter::NAME_KEY]);
+        $record['extra'][PsrAdapter::CONTEXT_NAME_KEY] = $record['context'][PsrAdapter::CONTEXT_NAME_KEY];
+        unset($record['context'][PsrAdapter::CONTEXT_NAME_KEY]);
 
         return $record;
     }
