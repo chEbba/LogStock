@@ -9,22 +9,22 @@
 
 namespace Che\LogStock\Loader;
 
-use Che\LogStock\Adapter\LoggerAdapter;
+use Che\LogStock\Adapter\LogAdapter;
 
 /**
- * Logger loader finds loggers by name
+ * Logger loader finds logger adapters by name
  * 
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  */ 
-interface LoggerLoader
+interface LogAdapterLoader
 {
     /**
-     * Load logger by name
+     * Load log adapter by name
      *
      * @param string $name Logger name
      *
-     * @return LoggerAdapter|null Logger object or null if no logger found
+     * @return LogAdapter|null Log adapter object or null if no adapter found
      */
     public function load($name);
 }

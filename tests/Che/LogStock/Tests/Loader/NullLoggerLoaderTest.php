@@ -35,6 +35,6 @@ class NullLoggerLoaderTest extends TestCase
      */
     public function loadAlwaysNull()
     {
-        self::assertNull($this->loader->load('logger'));
+        $this->assertNull($this->loader->load('logger'));
     }
 }

@@ -15,7 +15,7 @@ namespace Che\LogStock\Loader;
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  */ 
-class NullLoggerLoader implements LoggerLoader
+class NullLoggerLoader implements LogAdapterLoader
 {
     /**
      * {@inheritDoc}

@@ -29,11 +29,13 @@ class NameProcessor
     public function __invoke(array $record)
     {
         if (!isset($record['context'][PsrAdapter::CONTEXT_NAME_KEY])) {
-            return $record;
+            $logger = '';
+        } else {
+            $logger = $record['context'][PsrAdapter::CONTEXT_NAME_KEY];
+            unset($record['context'][PsrAdapter::CONTEXT_NAME_KEY]);
         }
 
-        $record['extra'][PsrAdapter::CONTEXT_NAME_KEY] = $record['context'][PsrAdapter::CONTEXT_NAME_KEY];
-        unset($record['context'][PsrAdapter::CONTEXT_NAME_KEY]);
+        $record['extra'][PsrAdapter::CONTEXT_NAME_KEY] = $logger;
 
         return $record;
     }

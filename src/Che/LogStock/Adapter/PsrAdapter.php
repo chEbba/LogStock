@@ -17,9 +17,9 @@ use Psr\Log\LoggerInterface;
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  */
-class PsrAdapter implements LoggerAdapter
+class PsrAdapter implements LogAdapter
 {
-    const CONTEXT_NAME_KEY = 'log_stock.name';
+    const CONTEXT_NAME_KEY = '_logger';
 
     private $logger;
 

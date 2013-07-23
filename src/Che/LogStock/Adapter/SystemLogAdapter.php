@@ -17,7 +17,7 @@ use Che\LogStock\LogLevel;
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  */ 
-class SystemLoggerAdapter implements LoggerAdapter
+class SystemLogAdapter implements LogAdapter
 {
     /**
      * @var int

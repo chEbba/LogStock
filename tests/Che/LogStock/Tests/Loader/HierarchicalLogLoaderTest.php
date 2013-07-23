@@ -9,7 +9,7 @@
 
 namespace Che\LogStock\Tests\Loader;
 
-use Che\LogStock\Loader\HierarchicalLoggerLoader;
+use Che\LogStock\Loader\HierarchicalLogLoader;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
@@ -18,26 +18,26 @@ use PHPUnit_Framework_TestCase as TestCase;
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  */
-class HierarchicalLoggerLoaderTest extends TestCase
+class HierarchicalLogLoaderTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     private $loader;
     /**
-     * @var HierarchicalLoggerLoader
+     * @var HierarchicalLogLoader
      */
     private $hierarchyLoader;
     /**
-     * @var \Che\LogStock\Logger;
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    private $logger;
+    private $adapter;
 
     protected function setUp()
     {
-        $this->loader = $this->getMock('Che\LogStock\Loader\LoggerLoader');
-        $this->hierarchyLoader = new HierarchicalLoggerLoader($this->loader, '$');
-        $this->logger = $this->getMock('Che\LogStock\Logger', array(), array(), '', false);
+        $this->loader = $this->getMock('Che\LogStock\Loader\LogAdapterLoader');
+        $this->hierarchyLoader = new HierarchicalLogLoader($this->loader, '$');
+        $this->adapter = $this->getMock('Che\LogStock\Adapter\LogAdapter');
     }
 
     /**
@@ -48,11 +48,11 @@ class HierarchicalLoggerLoaderTest extends TestCase
         $this->loader->expects(self::once())
             ->method('load')
             ->with('LogStock$Logger')
-            ->will(self::returnValue($this->logger));
+            ->will($this->returnValue($this->adapter));
 
-        $logger = $this->hierarchyLoader->load('LogStock$Logger');
+        $adapter = $this->hierarchyLoader->load('LogStock$Logger');
 
-        self::assertSame($this->logger, $logger);
+        $this->assertSame($this->adapter, $adapter);
     }
 
     /**
@@ -63,21 +63,21 @@ class HierarchicalLoggerLoaderTest extends TestCase
         $this->loader->expects(self::at(0))
             ->method('load')
             ->with('LogStock$Logger$Loader')
-            ->will(self::returnValue(null));
+            ->will($this->returnValue(null));
 
         $this->loader->expects(self::at(1))
             ->method('load')
             ->with('LogStock$Logger')
-            ->will(self::returnValue(null));
+            ->will($this->returnValue(null));
 
         $this->loader->expects(self::at(2))
             ->method('load')
             ->with('LogStock')
-            ->will(self::returnValue($this->logger));
+            ->will($this->returnValue($this->adapter));
 
-        $logger = $this->hierarchyLoader->load('LogStock$Logger$Loader');
+        $adapter = $this->hierarchyLoader->load('LogStock$Logger$Loader');
 
-        self::assertSame($this->logger, $logger);
+        $this->assertSame($this->adapter, $adapter);
     }
 
     /**
@@ -88,21 +88,21 @@ class HierarchicalLoggerLoaderTest extends TestCase
         $this->loader->expects(self::at(0))
             ->method('load')
             ->with('LogStock$Logger')
-            ->will(self::returnValue(null));
+            ->will($this->returnValue(null));
 
         $this->loader->expects(self::at(1))
             ->method('load')
             ->with('LogStock')
-            ->will(self::returnValue(null));
+            ->will($this->returnValue(null));
 
         $this->loader->expects(self::at(2))
             ->method('load')
             ->with('')
-            ->will(self::returnValue($this->logger));
+            ->will($this->returnValue($this->adapter));
 
-        $logger = $this->hierarchyLoader->load('LogStock$Logger');
+        $adapter = $this->hierarchyLoader->load('LogStock$Logger');
 
-        self::assertSame($this->logger, $logger);
+        $this->assertSame($this->adapter, $adapter);
     }
 
     /**
@@ -110,23 +110,23 @@ class HierarchicalLoggerLoaderTest extends TestCase
      */
     public function noParentsLoadsNull()
     {
-        $this->loader->expects(self::at(0))
+        $this->loader->expects($this->at(0))
             ->method('load')
             ->with('LogStock$Logger')
-            ->will(self::returnValue(null));
+            ->will($this->returnValue(null));
 
-        $this->loader->expects(self::at(1))
+        $this->loader->expects($this->at(1))
             ->method('load')
             ->with('LogStock')
-            ->will(self::returnValue(null));
+            ->will($this->returnValue(null));
 
-        $this->loader->expects(self::at(2))
+        $this->loader->expects($this->at(2))
             ->method('load')
             ->with('')
-            ->will(self::returnValue(null));
+            ->will($this->returnValue(null));
 
-        $logger = $this->hierarchyLoader->load('LogStock$Logger');
+        $adapter = $this->hierarchyLoader->load('LogStock$Logger');
 
-        self::assertNull($logger);
+        $this->assertNull($adapter);
     }
 }

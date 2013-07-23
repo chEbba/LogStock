@@ -9,7 +9,7 @@
 
 namespace Che\LogStock\Loader;
 
-use Che\LogStock\Adapter\LoggerAdapter;
+use Che\LogStock\Adapter\LogAdapter;
 use Che\ServiceLocator\ServiceLocator;
 
 /**
@@ -18,7 +18,7 @@ use Che\ServiceLocator\ServiceLocator;
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  */ 
-class ServiceLocatorLoader implements LoggerLoader
+class ServiceLocatorLoader implements LogAdapterLoader
 {
     /**
      * @var ServiceLocator
@@ -42,6 +42,6 @@ class ServiceLocatorLoader implements LoggerLoader
     {
         $service = $this->locator->getService($name);
 
-        return ($service instanceof LoggerAdapter) ? $service : null;
+        return ($service instanceof LogAdapter) ? $service : null;
     }
 }

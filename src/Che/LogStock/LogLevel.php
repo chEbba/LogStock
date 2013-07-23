@@ -1,6 +1,10 @@
 <?php
-/**
- * @LICENSE_TEXT
+/*
+ * Copyright (c)
+ * Kirill chEbba Chebunin <iam@chebba.org>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this package in the file LICENSE.
  */
 
 namespace Che\LogStock;
@@ -8,9 +12,10 @@ namespace Che\LogStock;
 use Psr\Log\LogLevel as BaseLogLevel;
 
 /**
- * Class LogLevel
+ * LogLevel enhanced with helper methods
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
+ * @license http://www.opensource.org/licenses/mit-license.php MIT
  */
 class LogLevel extends BaseLogLevel
 {
@@ -37,9 +42,9 @@ class LogLevel extends BaseLogLevel
      * Get level severity
      * @link http://tools.ietf.org/html/rfc3164
      *
-     * @param string $level
+     * @param string $level self::* constant
      *
-     * @return int Positive integer, less is more important
+     * @return int Non-negative integer, less is more important
      */
     public static function getLevelSeverity($level)
     {

@@ -25,10 +25,6 @@ class ServiceLocatorLoaderTest extends TestCase
      */
     private $locator;
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $formatter;
-    /**
      * @var ServiceLocatorLoader
      */
     private $loader;
@@ -37,25 +33,23 @@ class ServiceLocatorLoaderTest extends TestCase
      */
     private $adapter;
 
-
     protected function setUp()
     {
-        $this->locator = $this->getMock('Che\LogStock\Loader\Container\ServiceLocator');
-        $this->formatter = $this->getMock('Che\LogStock\Loader\Container\ServiceNameFormatter');
-        $this->loader = new ServiceLocatorLoader($this->locator, $this->formatter);
-        $this->adapter = $this->getMock('Che\LogStock\Adapter\LoggerAdapter', array(), array(), '', false);
+        $this->locator = $this->getMock('Che\ServiceLocator\ServiceLocator');
+        $this->loader = new ServiceLocatorLoader($this->locator);
+        $this->adapter = $this->getMock('Che\LogStock\Adapter\LogAdapter');
     }
 
     /**
-     * @test Loader uses locator and formatter to find adapter services
+     * @test Loader uses locator to find adapter services
      */
-    public function locatorAndFormatter()
+    public function loadWithLocator()
     {
         $this->expectsLocator($this->adapter);
 
-        $adapter = $this->loader->load('adapter');
+        $adapter = $this->loader->load('adapter_service');
 
-        self::assertSame($this->adapter, $adapter);
+        $this->assertSame($this->adapter, $adapter);
     }
 
     /**
@@ -65,21 +59,21 @@ class ServiceLocatorLoaderTest extends TestCase
     {
         $this->expectsLocator(null);
 
-        $adapter = $this->loader->load('adapter');
+        $adapter = $this->loader->load('adapter_service');
 
-        self::assertNull($adapter);
+        $this->assertNull($adapter);
     }
 
     /**
-     * @test If service found but is not LoggerAdapter, null should be returned
+     * @test If service found but is not LogAdapter, null should be returned
      */
-    public function notLogger()
+    public function notAdapter()
     {
         $this->expectsLocator(new \stdClass());
 
-        $logger = $this->loader->load('adapter');
+        $adapter = $this->loader->load('adapter_service');
 
-        self::assertNull($logger);
+        $this->assertNull($adapter);
     }
 
     /**
@@ -89,14 +83,11 @@ class ServiceLocatorLoaderTest extends TestCase
      */
     private function expectsLocator($value)
     {
-        $this->locator->expects(self::once())
+        $this->locator
+            ->expects($this->once())
             ->method('getService')
             ->with('adapter_service')
-            ->will(self::returnValue($value));
-
-        $this->formatter->expects(self::once())
-            ->method('formatServiceName')
-            ->with('adapter')
-            ->will(self::returnValue('adapter_service'));
+            ->will($this->returnValue($value))
+        ;
     }
 }

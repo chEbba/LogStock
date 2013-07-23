@@ -15,7 +15,7 @@ namespace Che\LogStock\Adapter;
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  */
-interface LoggerAdapter
+interface LogAdapter
 {
     /**
      * Log message

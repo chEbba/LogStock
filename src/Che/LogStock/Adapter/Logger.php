@@ -7,14 +7,12 @@
  * with this package in the file LICENSE.
  */
 
-namespace Che\LogStock;
+namespace Che\LogStock\Adapter;
 
-use Che\LogStock\Adapter\LoggerAdapter;
-use Che\LogStock\Adapter\LogRecord;
 use Psr\Log\AbstractLogger;
 
 /**
- * Logger provides extended functionality around LoggerAdapter
+ * Logger implementation through adapter
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT
@@ -22,7 +20,7 @@ use Psr\Log\AbstractLogger;
 class Logger extends AbstractLogger
 {
     /**
-     * @var LoggerAdapter
+     * @var LogAdapter
      */
     private $adapter;
     /**
@@ -33,10 +31,10 @@ class Logger extends AbstractLogger
     /**
      * Constructor
      *
-     * @param LoggerAdapter $adapter Internal logger adapter
+     * @param LogAdapter $adapter Internal logger adapter
      * @param string        $name    Logger name
      */
-    public function __construct(LoggerAdapter $adapter, $name)
+    public function __construct(LogAdapter $adapter, $name)
     {
         $this->adapter = $adapter;
         $this->name = $name;
@@ -45,7 +43,7 @@ class Logger extends AbstractLogger
     /**
      * Get adapter for this logger
      *
-     * @return LoggerAdapter
+     * @return LogAdapter
      */
     public function getAdapter()
     {
