@@ -56,7 +56,7 @@ class LoggerManager
      *
      * @return LoggerInterface
      */
-    public function getLogger($name)
+    public static function getLogger($name)
     {
         return self::getFactory()->getLogger($name);
     }

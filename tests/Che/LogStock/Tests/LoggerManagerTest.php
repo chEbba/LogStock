@@ -30,4 +30,17 @@ class LoggerManagerTest extends TestCase
 
         $this->assertEquals($builder->build(), LoggerManager::getFactory());
     }
+
+    /**
+     * @test logger manager use logger from factory
+     */
+    public function loggerFromFactory()
+    {
+        $logger = $this->getMock('Psr\Log\LoggerInterface');
+        $factory = $this->getMock('Che\LogStock\Factory\LoggerFactory');
+        $factory->expects($this->once())->method('getLogger')->with('_name_')->will($this->returnValue($logger));
+
+        LoggerManager::registerFactory($factory);
+        $this->assertEquals($logger, LoggerManager::getLogger('_name_'));
+    }
 }
