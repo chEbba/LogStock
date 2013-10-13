@@ -47,7 +47,7 @@ class ServiceLocatorLoaderTest extends TestCase
     {
         $this->expectsLocator($this->adapter);
 
-        $adapter = $this->loader->load('adapter_service');
+        $adapter = $this->loader->loadAdapter('adapter_service');
 
         $this->assertSame($this->adapter, $adapter);
     }
@@ -59,7 +59,7 @@ class ServiceLocatorLoaderTest extends TestCase
     {
         $this->expectsLocator(null);
 
-        $adapter = $this->loader->load('adapter_service');
+        $adapter = $this->loader->loadAdapter('adapter_service');
 
         $this->assertNull($adapter);
     }
@@ -71,7 +71,7 @@ class ServiceLocatorLoaderTest extends TestCase
     {
         $this->expectsLocator(new \stdClass());
 
-        $adapter = $this->loader->load('adapter_service');
+        $adapter = $this->loader->loadAdapter('adapter_service');
 
         $this->assertNull($adapter);
     }

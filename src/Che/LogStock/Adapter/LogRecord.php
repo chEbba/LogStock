@@ -1,6 +1,10 @@
 <?php
-/**
- * @LICENSE_TEXT
+/*
+ * Copyright (c)
+ * Kirill chEbba Chebunin <iam@chebba.org>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this package in the file LICENSE.
  */
 
 namespace Che\LogStock\Adapter;
@@ -8,9 +12,10 @@ namespace Che\LogStock\Adapter;
 use Che\LogStock\LogLevel;
 
 /**
- * Class LogRecord
+ * Log record object
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
+ * @license http://www.opensource.org/licenses/mit-license.php MIT
  */
 class LogRecord
 {
@@ -20,10 +25,12 @@ class LogRecord
     private $context;
 
     /**
-     * @param string $logger
-     * @param string $level
-     * @param string $message
-     * @param array  $context
+     * @param string $logger  Logger name
+     * @param string $level   LogLevel::* constants
+     * @param string $message Log message
+     * @param array  $context Context for logging
+     *
+     * @throws \InvalidArgumentException On wrong level
      */
     public function __construct($logger, $level, $message, array $context = [])
     {

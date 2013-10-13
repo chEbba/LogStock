@@ -28,8 +28,6 @@ class LoggerManager
      * DO NOT USE THIS METHOD IN YOUR APPLICATION CODE
      * THIS METHOD IS FOR STARTUP CONFIGURATION ONLY
      *
-     * TODO: allow register only once? and use proxy factory for modifications?
-     *
      * @param LoggerFactory $factory
      */
     public static function registerFactory(LoggerFactory $factory)

@@ -14,7 +14,7 @@ use Che\LogStock\Adapter\SystemLogAdapter;
 use Che\LogStock\Factory\AdapterLoaderFactory;
 use Che\LogStock\Factory\CachedLoggerFactory;
 use Che\LogStock\Factory\LoggerFactory;
-use Che\LogStock\Loader\HierarchicalLogLoader;
+use Che\LogStock\Loader\HierarchicalNameLoader;
 use Che\LogStock\Loader\LogAdapterLoader;
 use Che\LogStock\Loader\NullLoggerLoader;
 use Che\LogStock\Loader\ServiceLocatorLoader;
@@ -52,7 +52,7 @@ class LoggerFactoryBuilder
     }
 
     /**
-     * Disable logger hierarchy support
+     * Disable logger hierarchy support for adapter loader
      *
      * @return $this Provides the fluent interface
      *
@@ -82,7 +82,7 @@ class LoggerFactoryBuilder
 
     /**
      * Set custom adapter loader for adapter factory
-     * If none provided, null or service locator
+     * If none provided, the default one will be used
      *
      * @param LogAdapterLoader $loader
      *
@@ -117,15 +117,13 @@ class LoggerFactoryBuilder
     }
 
     /**
-     * Set service locator for loader
-     * If provided service locator loader will be used, custom or null otherwise
+     * Set service locator for service locator loader
      *
      * @param ServiceLocator $serviceLocator
      *
      * @return $this
      *
      * @see ServiceLocatorLoader
-     * @see NullLoggerLoader
      * @see loader()
      */
     public function serviceLocator(ServiceLocator $serviceLocator)
@@ -175,7 +173,7 @@ class LoggerFactoryBuilder
     {
         $loader = $this->loader ? : $this->createDefaultLoader();
         if ($this->hierarchy) {
-            $loader = new HierarchicalLogLoader($loader);
+            $loader = new HierarchicalNameLoader($loader);
         }
         $rootAdapter = $this->fallbackAdapter ? : $this->createDefaultFallbackAdapter();
 

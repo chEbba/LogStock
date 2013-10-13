@@ -1,6 +1,10 @@
 <?php
-/**
- * @LICENSE_TEXT
+/*
+ * Copyright (c)
+ * Kirill chEbba Chebunin <iam@chebba.org>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this package in the file LICENSE.
  */
 
 namespace Che\LogStock\Tests;
@@ -11,9 +15,10 @@ use Che\LogStock\LoggerManager;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
- * Class LoggerFactoryBuilderTest
+ * Test for LoggerFactoryBuilder
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
+ * @license http://www.opensource.org/licenses/mit-license.php MIT
  */
 class LoggerFactoryBuilderTest extends TestCase
 {

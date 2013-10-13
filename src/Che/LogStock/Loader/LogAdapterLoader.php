@@ -26,5 +26,5 @@ interface LogAdapterLoader
      *
      * @return LogAdapter|null Log adapter object or null if no adapter found
      */
-    public function load($name);
+    public function loadAdapter($name);
 }

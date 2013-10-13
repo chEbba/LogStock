@@ -45,6 +45,7 @@ class LogLevel extends BaseLogLevel
      * @param string $level self::* constant
      *
      * @return int Non-negative integer, less is more important
+     * @throws \InvalidArgumentException on wrong level
      */
     public static function getLevelSeverity($level)
     {

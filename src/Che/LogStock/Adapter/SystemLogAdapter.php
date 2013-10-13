@@ -48,6 +48,7 @@ class SystemLogAdapter implements LogAdapter
             return;
         }
 
+        // TODO: use better way for context formatting, ex Monolog NormalizerFormatter
         $message = sprintf(
             "[%s] %s: %s (%s)",
             strtoupper($record->getLevel()),

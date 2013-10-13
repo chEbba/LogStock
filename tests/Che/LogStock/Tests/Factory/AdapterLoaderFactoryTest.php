@@ -1,6 +1,10 @@
 <?php
-/**
- * @LICENSE_TEXT
+/*
+ * Copyright (c)
+ * Kirill chEbba Chebunin <iam@chebba.org>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this package in the file LICENSE.
  */
 
 namespace Che\LogStock\Tests\Factory;
@@ -9,9 +13,10 @@ use Che\LogStock\Factory\AdapterLoaderFactory;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
- * Class AdapterLoaderFactoryTest
+ * Test for AdapterLoaderFactory
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
+ * @license http://www.opensource.org/licenses/mit-license.php MIT
  */
 class AdapterLoaderFactoryTest extends TestCase
 {
@@ -46,7 +51,7 @@ class AdapterLoaderFactoryTest extends TestCase
         $adapter = $this->getMock('Che\LogStock\Adapter\LogAdapter');
         $this->loader
             ->expects($this->once())
-            ->method('load')
+            ->method('loadAdapter')
             ->with('foo')
             ->will($this->returnValue($adapter))
         ;
@@ -61,7 +66,7 @@ class AdapterLoaderFactoryTest extends TestCase
     {
         $this->loader
             ->expects($this->once())
-            ->method('load')
+            ->method('loadAdapter')
             ->with('foo')
             ->will($this->returnValue(null))
         ;

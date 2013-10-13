@@ -10,8 +10,8 @@
 namespace Che\LogStock\Loader;
 
 /**
- * Loader wrapper with hierarchy support.
- * Uses separator to detect parent logger for fallback.
+ * Loader wrapper with a hierarchy support.
+ * Uses separator to detect parent logger name for fallback.
  *
  * For example loader with "\" separator will try to load
  * loggers with "foo\bar", "foo" and "" names as parents for missed "foo\bar\baz" logger.
@@ -19,7 +19,7 @@ namespace Che\LogStock\Loader;
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  */ 
-class HierarchicalLogLoader implements LogAdapterLoader
+class HierarchicalNameLoader implements LogAdapterLoader
 {
     /**
      * @var LogAdapterLoader
@@ -65,10 +65,10 @@ class HierarchicalLogLoader implements LogAdapterLoader
     /**
      * {@inheritDoc}
      */
-    public function load($name)
+    public function loadAdapter($name)
     {
         while ($name) {
-            $logger = $this->nestedLoader->load($name);
+            $logger = $this->nestedLoader->loadAdapter($name);
             if ($logger) {
                 return $logger;
             }
@@ -76,8 +76,8 @@ class HierarchicalLogLoader implements LogAdapterLoader
             $name = $this->getParentName($name);
         }
 
-        // Try to load loader with empty name ""
-        return $this->nestedLoader->load($name);
+        // Try to load loader with empty name "" if no one found
+        return $this->nestedLoader->loadAdapter('');
     }
 
     /**

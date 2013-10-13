@@ -15,7 +15,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Psr\Log\LogLevel;
 
 /**
- * PsrAdapter test
+ * PsrAdapter Test
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT

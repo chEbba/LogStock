@@ -38,7 +38,7 @@ class ServiceLocatorLoader implements LogAdapterLoader
     /**
      * {@inheritDoc}
      */
-    public function load($name)
+    public function loadAdapter($name)
     {
         $service = $this->locator->getService($name);
 

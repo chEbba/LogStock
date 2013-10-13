@@ -37,16 +37,16 @@ class NameProcessorTest extends TestCase
      */
     public function moveNameParameter()
     {
-        $record = array(
-            'context' => array(PsrAdapter::CONTEXT_NAME_KEY => 'name'),
-            'extra' => array()
-        );
+        $record = [
+            'context' => [PsrAdapter::CONTEXT_NAME_KEY => 'name'],
+            'extra' => []
+        ];
 
         self::assertEquals(
-            array(
-                'context' => array(),
-                'extra' => array(PsrAdapter::CONTEXT_NAME_KEY => 'name')
-            ),
+            [
+                'context' => [],
+                'extra' => [PsrAdapter::CONTEXT_NAME_KEY => 'name']
+            ],
             $this->processor->__invoke($record)
         );
     }
@@ -56,16 +56,16 @@ class NameProcessorTest extends TestCase
      */
     public function setEmptyIfNoParameter()
     {
-        $record = array(
-            'context' => array(),
-            'extra' => array()
-        );
+        $record = [
+            'context' => [],
+            'extra' => []
+        ];
 
         self::assertEquals(
-            array(
-                'context' => array(),
-                'extra' => array(PsrAdapter::CONTEXT_NAME_KEY => '')
-            ),
+            [
+                'context' => [],
+                'extra' => [PsrAdapter::CONTEXT_NAME_KEY => '']
+            ],
             $this->processor->__invoke($record)
         );
     }

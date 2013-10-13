@@ -12,7 +12,7 @@ namespace Che\LogStock\Adapter;
 use Psr\Log\AbstractLogger;
 
 /**
- * Logger implementation through adapter
+ * Adapter implementation for Logger
  *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT
@@ -31,8 +31,8 @@ class Logger extends AbstractLogger
     /**
      * Constructor
      *
-     * @param LogAdapter $adapter Internal logger adapter
-     * @param string        $name    Logger name
+     * @param LogAdapter $adapter Logger adapter
+     * @param string     $name    Logger name
      */
     public function __construct(LogAdapter $adapter, $name)
     {
@@ -63,7 +63,7 @@ class Logger extends AbstractLogger
     /**
      * {@inheritDoc}
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
         $this->adapter->log(new LogRecord($this->name, $level, $message, $context));
     }

@@ -36,6 +36,6 @@ class AdapterLoaderFactory implements LoggerFactory
      */
     public function getLogger($name)
     {
-        return new Logger($this->loader->load($name) ?: $this->fallbackAdapter, $name);
+        return new Logger($this->loader->loadAdapter($name) ?: $this->fallbackAdapter, $name);
     }
 }
