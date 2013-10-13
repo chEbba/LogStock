@@ -10,21 +10,21 @@
 namespace Che\LogStock\Loader;
 
 /**
- * Logger loader wrapper with hierarchy support.
- * Uses separator to detect parent logger for fallback.
+ * Loader wrapper with a hierarchy support.
+ * Uses separator to detect parent logger name for fallback.
  *
- * For example loader with '\' separator will try to load
- * logger with foo\bar name as a parent of missed foo\bar\baz logger.
+ * For example loader with "\" separator will try to load
+ * loggers with "foo\bar", "foo" and "" names as parents for missed "foo\bar\baz" logger.
  * 
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT
  */ 
-class HierarchicalLoggerLoader implements LoggerLoader
+class HierarchicalNameLoader implements LogAdapterLoader
 {
     /**
-     * @var LoggerLoader
+     * @var LogAdapterLoader
      */
-    private $internalLoader;
+    private $nestedLoader;
     /**
      * @var string
      */
@@ -33,23 +33,23 @@ class HierarchicalLoggerLoader implements LoggerLoader
     /**
      * Constructor
      *
-     * @param LoggerLoader $internalLoader Wrapped loader
-     * @param string       $separator      Hierarchy separator
+     * @param LogAdapterLoader $nestedLoader Nested loader
+     * @param string           $separator    Hierarchy separator
      */
-    public function __construct(LoggerLoader $internalLoader, $separator = '\\')
+    public function __construct(LogAdapterLoader $nestedLoader, $separator = '\\')
     {
-        $this->internalLoader = $internalLoader;
+        $this->nestedLoader = $nestedLoader;
         $this->separator = $separator;
     }
 
     /**
-     * Get internalLoader
+     * Get nested loader
      *
-     * @return LoggerLoader
+     * @return LogAdapterLoader
      */
-    public function getInternalLoader()
+    public function getNestedLoader()
     {
-        return $this->internalLoader;
+        return $this->nestedLoader;
     }
 
     /**
@@ -65,10 +65,10 @@ class HierarchicalLoggerLoader implements LoggerLoader
     /**
      * {@inheritDoc}
      */
-    public function load($name)
+    public function loadAdapter($name)
     {
         while ($name) {
-            $logger = $this->internalLoader->load($name);
+            $logger = $this->nestedLoader->loadAdapter($name);
             if ($logger) {
                 return $logger;
             }
@@ -76,8 +76,8 @@ class HierarchicalLoggerLoader implements LoggerLoader
             $name = $this->getParentName($name);
         }
 
-        // Try to load loader with empty name ""
-        return $this->internalLoader->load($name);
+        // Try to load loader with empty name "" if no one found
+        return $this->nestedLoader->loadAdapter('');
     }
 
     /**
@@ -89,6 +89,6 @@ class HierarchicalLoggerLoader implements LoggerLoader
      */
     protected function getParentName($name)
     {
-        return (string) substr($name, 0, strrpos($name, $this->separator));
+        return (string) substr($name, 0, (int) strrpos($name, $this->separator));
     }
 }

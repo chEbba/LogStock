@@ -7,22 +7,20 @@
  * with this package in the file LICENSE.
  */
 
-namespace Che\LogStock\Loader\Container;
+namespace Che\LogStock\Adapter;
 
 /**
- * Dynamic Service Locator interface
- * 
+ * Logger adapter. Common interface for adapters of different logger libraries
+ *
  * @author Kirill chEbba Chebunin <iam@chebba.org>
  * @license http://www.opensource.org/licenses/mit-license.php MIT
- */ 
-interface ServiceLocator 
+ */
+interface LogAdapter
 {
     /**
-     * Get service by name
+     * Log message
      *
-     * @param string $name Service name
-     *
-     * @return object|null Service for this name, or null if service is not exist
+     * @param LogRecord $record
      */
-    public function getService($name);
+    public function log(LogRecord $record);
 }

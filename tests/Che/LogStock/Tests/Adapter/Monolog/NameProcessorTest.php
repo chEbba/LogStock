@@ -11,6 +11,7 @@ namespace Che\LogStock\Tests\Adapter\Monolog;
 
 use Che\LogStock\Adapter\Monolog\MonologAdapter;
 use Che\LogStock\Adapter\Monolog\NameProcessor;
+use Che\LogStock\Adapter\PsrAdapter;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
@@ -36,35 +37,35 @@ class NameProcessorTest extends TestCase
      */
     public function moveNameParameter()
     {
-        $record = array(
-            'context' => array(MonologAdapter::NAME_KEY => 'name'),
-            'extra' => array()
-        );
+        $record = [
+            'context' => [PsrAdapter::CONTEXT_NAME_KEY => 'name'],
+            'extra' => []
+        ];
 
         self::assertEquals(
-            array(
-                'context' => array(),
-                'extra' => array(MonologAdapter::NAME_KEY => 'name')
-            ),
+            [
+                'context' => [],
+                'extra' => [PsrAdapter::CONTEXT_NAME_KEY => 'name']
+            ],
             $this->processor->__invoke($record)
         );
     }
 
     /**
-     * @test __invoke do nothing if context does not have name parameter
+     * @test __invoke if context does not have name parameter use empty parameter
      */
-    public function doNothingIfNoParameter()
+    public function setEmptyIfNoParameter()
     {
-        $record = array(
-            'context' => array(),
-            'extra' => array()
-        );
+        $record = [
+            'context' => [],
+            'extra' => []
+        ];
 
         self::assertEquals(
-            array(
-                'context' => array(),
-                'extra' => array()
-            ),
+            [
+                'context' => [],
+                'extra' => [PsrAdapter::CONTEXT_NAME_KEY => '']
+            ],
             $this->processor->__invoke($record)
         );
     }

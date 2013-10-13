@@ -1,7 +1,7 @@
 {
     "name": "che/log-stock",
-    "description": "Static Logger Factory",
-    "keywords": ["log", "logging", "logger"],
+    "description": "Static Logger Manager",
+    "keywords": ["log", "logging", "logger", "static", "class"],
     "homepage": "http://github.com/chEbba/LogStock",
     "type": "library",
     "license": "MIT",
@@ -13,19 +13,22 @@
         }
     ],
 
+    "autoload": {
+        "psr-0": { "Che\\LogStock": "src/" }
+    },
+
     "require": {
-        "php": ">=5.3.2"
+        "php": ">=5.4.0",
+        "psr/log": "~1.0",
+        "che/service-locator": "0.1.*"
     },
     "require-dev": {
-        "monolog/monolog": "1.0.*",
         "phpunit/phpunit": "3.7.*"
     },
 
-    "suggest": {
-        "monolog/monolog": "1.2.*"
-    },
-
-    "autoload": {
-        "psr-0": { "Che\\LogStock": "src/" }
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0-dev"
+        }
     }
 }
